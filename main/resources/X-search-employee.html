@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Employment System - Search Employees</title>
+</head>
+<body>
+<form action="search-employee.html">
+	<label>First Name: </label><input type="text" name="firstname" id="search-firstname"/><br/><br/>
+	<label>Last Name: </label><input type="text" name="lastname" id="search-lastname"/><br/><br/>
+	<label>Position: </label><input type="text" name="position" id="search-position"/><br/><br/>
+	<input type="submit" value="Search">
+	<input type="reset" value="Clear">
+</form>
+
+<hr>
+<h1>Search Results</h1>
+<table>
+		<tr>
+			<th>Id</th>
+			<th>First Name</th>
+			<th>Middle Name</th>
+			<th>Last Name</th>
+			<th>Date Of Birth</th>
+			<th>Position</th>
+			<th></th>
+			<th></th>
+		</tr>
+		<tr>
+			<td>...</td>
+			<td>${param.firstname}</td>
+			<td>...</td>
+			<td>${param.lastname}</td>
+			<td>...</td>
+			<td>${param.position}</td>
+			<td><a href="">Edit</a></td>
+			<td><a href="">Delete</a></td>
+		</tr>
+	</table>
+</body>
+</html>
