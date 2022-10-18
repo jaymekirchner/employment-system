@@ -20,9 +20,7 @@
 		</div>
 		<nav class="header-nav">
 			<ul class="nav-links">
-				<li><a href="/home">Home</a></li>
-				<li><a href="/add-employee" target="_blank">Add Employee</a></li>
-				<li><a href="/search-employee">Search Employee</a></li>
+				<li><a href="/home" onclick="self.close();self.opener.location.reload(true);">Home</a></li>
 			</ul>
 		</nav>
 	</header>
@@ -63,14 +61,6 @@
 	</main>
 
 	<footer>
-		<nav class="footer-nav">
-			<ul class="nav-links clearfix">
-				<li><a href="/home">Home</a></li>
-				<li><a href="/home">Home</a></li>
-				<li><a href="/add-employee" target="_blank">Add Employee</a></li>
-				<li><a href="/search-employee">Search Employee</a></li>
-			</ul>
-		</nav>
 		<div class="clear-float"></div>
 		<p id="datetime"></p>
 		<script>

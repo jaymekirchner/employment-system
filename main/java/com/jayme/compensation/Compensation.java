@@ -1,5 +1,6 @@
 package com.jayme.compensation;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
@@ -75,7 +76,8 @@ public class Compensation {
 	}
 
 	public void setAmount(String amount) {
-		this.amount = amount;
+		DecimalFormat amountFormatter = new DecimalFormat("$#0.00");
+		this.amount = amountFormatter.format(amount);
 	}
 
 	public String getDescription() {
@@ -132,7 +134,7 @@ public class Compensation {
 			this.startDate = LocalDate.parse(""+year+"-01-01").toString();
 		} else {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM");
-			this.startDate = YearMonth.parse(startDate, formatter).atEndOfMonth().toString();
+			this.startDate = YearMonth.parse(startDate, formatter).atDay(1).toString();
 		}
 	}
 

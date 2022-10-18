@@ -33,8 +33,8 @@ public class CompensationService {
 		return repo.findByEmployeeAndDate(employee, date);
 	}
 
-	public List<Compensation> findByEmployeeIdAndDateBetweenOrderByDateDesc(long employeeId, String startDate, String endDate) {
-		return repo.findByEmployeeIdAndDateBetweenOrderByDateDesc(employeeId, startDate, endDate);
+	public List<Compensation> findCompensationByEmployeeIdAndDateBetweenOrderByDateDesc(long employeeId, String startDate, String endDate) {
+		return repo.findCompensationByEmployeeIdAndDateBetweenOrderByDateDesc(employeeId, startDate, endDate);
 	}
 	
 	public List<Compensation> findByEmployeeIdAndCompensationTypeAndDate(long employeeId, String compensationType, String date) {
@@ -45,6 +45,9 @@ public class CompensationService {
 		repo.deleteById(id);
 	}
 	
+	public List<Compensation> findCompensationByEmployeeIdAndDateEquals(long employeeId, String date) {
+		return repo.findCompensationByEmployeeIdAndDateEquals(employeeId, date);
+	}
 	
 	
 }

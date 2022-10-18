@@ -11,14 +11,13 @@
 </head>
 
 <body>
-
 	<header>
 		<div class="header-content clearfix">
 			<h1>Employment System</h1>
 		</div>
 		<nav class="header-nav">
 			<ul class="nav-links">
-				<li><a href="redirect:/home">Home</a></li>
+				<li><a href="/home" onclick="self.reload(true);">Home</a></li>
 				<li><a href="/add-employee" target="_blank">Add Employee</a></li>
             	<li><a href="/search-employee">Search Employee</a></li>
 			</ul>

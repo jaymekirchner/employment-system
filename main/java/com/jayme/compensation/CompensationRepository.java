@@ -13,9 +13,8 @@ public interface CompensationRepository extends JpaRepository<Compensation, Long
 	  
 	List<Compensation> findByEmployeeIdAndCompensationTypeAndDate(long employeeId, String compensationType, String date);
 	
-	List<Compensation> findByEmployeeIdAndDateBetweenOrderByDateDesc(long employeeId, String startDate, String endDate);
-	
-//	List<Compensation> findByCompensationTypeAndDate(String compensationType, String date);
-//	List<Compensation> findByCompensationType(String compensationType);
+	List<Compensation> findCompensationByEmployeeIdAndDateBetweenOrderByDateDesc(long employeeId, String startDate, String endDate);
+
+	List<Compensation> findCompensationByEmployeeIdAndDateEquals(long employeeId, String date);
 	
 }

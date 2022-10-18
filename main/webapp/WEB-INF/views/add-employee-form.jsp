@@ -16,14 +16,11 @@
 
 	<header>
 		<div class="header-content clearfix">
-			<!-- <img id="profile-image" src="/images/photo1.jpg" alt="profile picture of Jayme Kirchner" width="15%" height="15%"> -->
 			<h1>Employment System</h1>
 		</div>
 		<nav class="header-nav">
 			<ul class="nav-links">
-				<li><a href="/home">Home</a></li>
-				<li><a href="/add-employee" target="_blank">Add Employee</a></li>
-            	<li><a href="/search-employee">Search Employee</a></li>
+				<li><a href="/home" onclick="self.close();self.opener.location.reload(true);">Home</a></li>
 			</ul>
 		</nav>
 	</header>
@@ -73,8 +70,6 @@
 
 						<br />
 						<form:button>Submit</form:button>
-						
-						<%-- <form:button>Reset</form:button> --%>
 					</div>
 				</form:form>
 			</div>
@@ -82,13 +77,6 @@
 	</main>
 
 	<footer>
-		<nav class="footer-nav">
-			<ul class="nav-links clearfix">
-				<li><a href="/home">Home</a></li>
-				<li><a href="/add-employee" target="_blank">Add Employee</a></li>
-            	<li><a href="/search-employee">Search Employee</a></li>
-			</ul>
-		</nav>
 		<div class="clear-float"></div>
 		<p id="datetime"></p>
 		<script>
