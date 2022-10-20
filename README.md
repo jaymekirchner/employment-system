@@ -14,4 +14,5 @@ I utilized the SpringBoot framework for serving web content using the embedded A
 <li>Add Employee Compensation Details</li>
 <li>View Compensation History</li>
 <li>View Compensation Breakdown for a Month</li>
+<li>Edit Compensation Details</li>
 </ol>
