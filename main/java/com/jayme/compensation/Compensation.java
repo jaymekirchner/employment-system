@@ -1,6 +1,5 @@
 package com.jayme.compensation;
 
-import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
@@ -42,6 +41,7 @@ public class Compensation {
 	private String description;
 	
 	@Column(name="date", nullable = false)
+	@NotNull(message="Please provide a date")
 	@NotBlank(message="Please provide a date")
 	private String date; //get last date of current month
 	
@@ -76,8 +76,8 @@ public class Compensation {
 	}
 
 	public void setAmount(String amount) {
-		DecimalFormat amountFormatter = new DecimalFormat("$#0.00");
-		this.amount = amountFormatter.format(amount);
+//		DecimalFormat amountFormatter = new DecimalFormat("$#,##0.00");
+		this.amount = amount; //amountFormatter.format(amount);
 	}
 
 	public String getDescription() {
@@ -92,7 +92,7 @@ public class Compensation {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(String date) {		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM");
 		this.date = YearMonth.parse(date, formatter).atEndOfMonth().toString();
 	}

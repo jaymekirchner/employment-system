@@ -56,25 +56,21 @@
 							<form:label path="amount" class="label">Amount:</form:label><span class="error">${amountError}</span> 
 								<c:if test="${compensation.compensationType.equals('Commission')}">
 									<span class="error">${"Make sure to enter an exact amount, not a percentage"}</span>  
-									
 								</c:if> 
+								&nbsp;&nbsp;<form:errors path="amount" class="error" />
 							<br />
-							
-							<form:input path="amount"
-								pattern="^(\d{1,3}(\,\d{3})*|(\d+))(\.\d{2})?$" />
-							<form:errors path="amount" class="error" />
+							<form:input path="amount" pattern="^(\d{1,3}(\,\d{3})*|(\d+))(\.\d{2})?$" />
 							<br />
 
-							<form:label path="description" class="label">Description:</form:label>
+							<form:label path="description" class="label">Description:</form:label>&nbsp;&nbsp;<form:errors path="description" class="error" />
+
 							<span class="error">${descriptionError}</span> <br />
 							<form:input path="description" />
-							<form:errors path="description" class="error" />
-							<br />
+													<br />
 
-							<form:label path="date" class="label">Compensation Date:</form:label>
+							<form:label path="date" class="label">Compensation Date:</form:label>&nbsp;&nbsp;<form:errors path="date" class="error" />
 							<span class="error">${dateError}</span> <br />
-							<form:input id="compensationDate" path="date" type="month" />
-							<form:errors path="date" class="error" />
+							<form:input id="compensationDate" path="date" type="month" value="${dateValue}" />
 							<br />
 
 							<form:label path="employee" class="label">Associated Employee:</form:label>
@@ -84,8 +80,9 @@
 						</div>
 
 						<br />
-						<form:button>Submit</form:button>
-						<%-- <form:button>Reset</form:button> --%>
+						<form:button type="submit">Submit</form:button>
+						<form:button type="reset">Reset</form:button>
+						<form:button onclick="self.close()">Go Back</form:button>
 
 					</div>
 				</form:form>

@@ -3,12 +3,14 @@ package com.jayme.compensation;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.YearMonth;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
 import javax.validation.Valid;
 
+import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,10 +34,13 @@ public class CompensationController {
 
 	@RequestMapping("/compensation-details/{employeeId}")
 	public String showCompensationDetails(@PathVariable(name = "employeeId") long employeeId, Model model) {
-		
 		List<Compensation> compensationList = compensationService.findCompensationByEmployeeId(employeeId);
+		String total = getTotalAmount(compensationList);
+		
+		model.addAttribute("totalAmount", total);
 		model.addAttribute("employee", employeeService.get(employeeId));
 		model.addAttribute("compensationList", compensationList);
+		
 		return "view-compensation-details";
 	}
 
@@ -45,6 +50,7 @@ public class CompensationController {
 		model.addAttribute("compensation", compensation);
 		model.addAttribute("employee", employeeService.get(employeeId));
 		model.addAttribute("employeeId", employeeId);
+		model.addAttribute("dateValue", YearMonth.now().toString());
 		return "add-compensation-form";
 	}
 
@@ -56,23 +62,35 @@ public class CompensationController {
 		String compensationType = compensation.getCompensationType();
 		String description = compensation.getDescription();
 		
+		String date = compensation.getDate();
+		int y = LocalDate.parse(date).getYear();
+		int m = LocalDate.parse(date).getMonthValue();
+		date = YearMonth.of(y, m).toString();
+		
 		if (bindingResult.hasErrors()) {
+//			System.out.println("binding result has errors");
 			model.addAttribute(compensation);
 			model.addAttribute(employee);
+			model.addAttribute("dateValue", date);
 			return "add-compensation-form";
 			
 		} else {
+			if (compensation.getDate().equals("")) {
+				model.addAttribute("dateError", "Please enter a date");
+				return "add-compensation-form";
+			}
+			
 			Double compensationAmount = new Double(compensation.getAmount());
 			
-			if (compensationType.equals("Salary")) { //if compensationType == salary, date restriction -- only 1 per month
-				if(!checkSalaryDate(compensation)) {  //returns true if date already exists in compensationList
+			if (compensationType.equals("Salary")) { 
+				if(!checkSalaryDate(compensation)) {  
 					model.addAttribute("dateError", "Only 1 Salary entry allowed per month");
 					model.addAttribute(compensation);
 					model.addAttribute(employee);
 					return "add-compensation-form";
 				}
 			} 			
-			else if (compensationType.equals("Bonus") || compensationType.equals("Commission") || compensationType.equals("Allowance")) { //if compensationType == commission, warning message that amount should be actual amount received, not %age, amount > 0, description required
+			else if (compensationType.equals("Bonus") || compensationType.equals("Commission") || compensationType.equals("Allowance")) { 
 				if ((compensationAmount <= 0) || (checkDescription(description))) {
 					if (compensationAmount <= 0) {
 						model.addAttribute("amountError", "Amount must be greater than 0");
@@ -87,7 +105,7 @@ public class CompensationController {
 					return "add-compensation-form";
 				}
 			}
-			else if (compensationType.equals("Adjustment")) { //if compensationType == adjustment, amount != 0, description required
+			else if (compensationType.equals("Adjustment")) { 
 				if ((compensationAmount == 0) || (checkDescription(description))) {
 					if (compensationAmount == 0) {
 						model.addAttribute("amountError", "Amount cannot be 0");
@@ -113,6 +131,7 @@ public class CompensationController {
 	public String filterCompensationDetails(@PathVariable(name = "employeeId") long employeeId, Model model) {
 		model.addAttribute("employee", employeeService.get(employeeId));
 		model.addAttribute("compensation", new Compensation());
+		model.addAttribute("dateValue", YearMonth.now().toString());
 		return "search-compensation-page";
 	}
 	
@@ -122,7 +141,7 @@ public class CompensationController {
 			BindingResult bindingResult, Model model) {
 		
 		if (bindingResult.hasErrors()) {
-			System.out.println("binding result has errors");
+//			System.out.println("binding result has errors");
 			model.addAttribute("employee", employeeService.get(employeeId));
 			model.addAttribute(compensation);
 			return "search-compensation-page";
@@ -150,11 +169,11 @@ public class CompensationController {
 	@RequestMapping("/view-details/{employeeId}/{date}")
 	public String viewCompensationBreakdownForMonth(@PathVariable("employeeId") long employeeId, @PathVariable("date") String date, Model model) {
 		List<Compensation> compensationList = compensationService.findCompensationByEmployeeIdAndDateEquals(employeeId, date);
-		String total = getTotalAmountForMonth(compensationList);
+		String total = getTotalAmount(compensationList);
 		Month month = LocalDate.parse(date).getMonth();
 		
 		model.addAttribute("totalAmount", total);
-		model.addAttribute("chosenMonth", month);
+		model.addAttribute("chosenMonth", "for "+month);
 		model.addAttribute("employee", employeeService.get(employeeId));
 		model.addAttribute("compensationList", compensationList);
 		return "view-compensation-details";
@@ -168,7 +187,7 @@ public class CompensationController {
 	}
 	
 	
-	private String getTotalAmountForMonth(List<Compensation> compensationList) {
+	private String getTotalAmount(List<Compensation> compensationList) {
 		DecimalFormat amountFormatter = new DecimalFormat("#,##0.00");
 		double totalAmount = 0;
 		

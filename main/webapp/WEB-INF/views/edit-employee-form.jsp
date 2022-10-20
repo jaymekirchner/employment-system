@@ -75,6 +75,7 @@
 
 						<br />
 						<form:button>Submit</form:button>
+						<form:button onclick="self.close()">Go Back</form:button>
 					</div>
 				</form:form>
 			</div>

@@ -24,7 +24,7 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeService employeeService;
 
-	@RequestMapping({ "/", "/home" })
+	@RequestMapping({ "/","/home"})
 	public String home(Model model) {
 		List<Employee> employees = employeeService.listAll();
 		model.addAttribute("employees", employees);

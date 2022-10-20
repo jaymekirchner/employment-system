@@ -73,6 +73,7 @@
 					</div>
 				</form:form>
 				<div class="btn-group">
+					<a href="" onclick="self.close()" class="btn">Go Back</a> 
 					<a href="/edit/${employee.id}" target="_blank" class="btn">Edit Employee</a> 
 					<a href="/delete/${employee.id}" class="btn">Delete Employee</a> 
 					<a href="/add-compensation/${employee.id}" target="_blank" class="btn">Add Compensation</a> 

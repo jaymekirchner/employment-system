@@ -7,8 +7,7 @@
 <meta charset="ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="/css/styles.css">
-<link rel="icon" type="image/jpg" href="images/my-logo.jpg"
-	sizes="16x16">
+<link rel="icon" type="image/jpg" href="images/my-logo.jpg" sizes="16x16">
 <title>Add Employee</title>
 </head>
 
@@ -20,7 +19,7 @@
 		</div>
 		<nav class="header-nav">
 			<ul class="nav-links">
-				<li><a href="/home" onclick="self.close();self.opener.location.reload(true);">Home</a></li>
+				<li><a href="redirect:/home" onclick="self.close();">Home</a></li>
 			</ul>
 		</nav>
 	</header>

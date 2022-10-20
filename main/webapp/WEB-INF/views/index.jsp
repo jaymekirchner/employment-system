@@ -27,6 +27,9 @@
 	<main>
 		<section>
 			<div class="section-header"><h2>List of Employees</h2></div>
+			<!-- <div class="btn-group">
+				<a class="btn" href="/" onclick="self.reload(true);">Refresh Employees Table </a>
+			</div> -->
 			<div class="table">
 				<table>
 					<thead class="center-text">
@@ -36,6 +39,7 @@
 						<th>Last Name</th>
 						<th>Birth Date</th>
 						<th>Position</th>
+						<th>Actions</th>
 					</thead>
 					<tbody>
 						<c:forEach items="${employees}" var="employee">
@@ -46,6 +50,9 @@
 								<td>${employee.lastName}</td>
 								<td>${employee.birthday}</td>
 								<td>${employee.position}</td>
+								<td class="center-text actions">
+									<a href="/delete/${employee.id}">Delete</a>
+								</td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -61,7 +68,7 @@
 	<footer>
 		<nav class="footer-nav">
 			<ul class="nav-links clearfix">
-				<li><a href="/home">Home</a></li>
+				<li><a href="/home" onclick="self.reload(true);">Home</a></li>
 				<li><a href="/add-employee" target="_blank">Add Employee</a></li>
             	<li><a href="/search-employee">Search Employee</a></li>
 			</ul>

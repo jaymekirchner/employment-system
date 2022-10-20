@@ -16,7 +16,7 @@
 		</div>
 		<nav class="header-nav">
 			<ul class="nav-links">
-				<li><a href="redirect:/home" onclick="self.opener.reload(); self.close();">Home</a></li>
+				<li><a href="/home">Home</a></li>
 			</ul>
 		</nav>
 	</header>
@@ -25,6 +25,10 @@
     <main>
         <section>
             <div class="section-header"><h2> Oops!  You encountered an error. </h2></div>
+<!--             <div class="clear-float"></div> -->
+            <div class="btn-group">
+            	<a href="" class="btn" onclick="self.close()">Go Back</a>
+            </div>
         </section>
     </main>
 

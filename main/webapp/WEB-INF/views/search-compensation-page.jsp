@@ -41,12 +41,12 @@
 						<div class="stretch-input">
 						<p class="error">${validDatesError}</p>
 							<form:label path="startDate" class="label">Start Date:</form:label><br/>
-							<form:input path="startDate" type="month"/>
+							<form:input path="startDate" type="month" value="${dateValue}"/>
 							<form:errors path="startDate" class="error" />
 							<br />
 
 							<form:label path="endDate" class="label">End Date:</form:label><br/>
-							<form:input path="endDate" type="month"/>
+							<form:input path="endDate" type="month"  value="${dateValue}"/>
 							<form:errors path="endDate" class="error" />
 							<br />
 						</div>

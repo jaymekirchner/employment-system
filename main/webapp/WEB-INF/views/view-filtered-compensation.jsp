@@ -38,7 +38,8 @@
 
 				<div class="btn-group">
 					<a href="/add-compensation/${employee.id}" target="_blank" class="btn">Add Compensation</a> 
-					<a href="/filter-compensation/${employee.id}" target="_blank" class="btn">Filter Compensation</a> 
+					<a href="/filter-compensation/${employee.id}" class="btn">Filter Compensation</a>
+					<a href="" onclick="self.close()" class="btn">Go Back</a>
 				</div>
 				<div class="clear-float"></div>
 				<div class="table history-table">
