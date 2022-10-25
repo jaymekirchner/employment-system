@@ -1,6 +1,4 @@
 # Employment System Application
-
-## Description
 The Employment System application is a model web interface to track employees and their compensation data. The user is able to insert, search/retrieve, and edit data in a MySQL database. 
 
 I utilized the SpringBoot framework for serving web content using the embedded Apache Tomcat server; Spring Data JPA for interfacing with the MySQL database; and JSP and JavaScript for creating dynamic webpages. 
