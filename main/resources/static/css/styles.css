@@ -356,6 +356,10 @@ input[readonly] {
 	float: left;
 }
 
+.success-table {
+	height: auto;
+}
+
 .increase-top-spacing {
 	margin-top: 30px;
 }

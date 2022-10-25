@@ -68,7 +68,6 @@
 		<nav class="footer-nav">
 			<ul class="nav-links clearfix">
 				<li><a href="/home">Home</a></li>
-				<li><a href="/add-employee" target="_blank">Add Employee</a></li>
 				<li><a href="/search-employee">Search Employee</a></li>
 			</ul>
 		</nav>

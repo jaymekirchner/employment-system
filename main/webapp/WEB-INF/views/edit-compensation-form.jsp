@@ -36,20 +36,16 @@
 			</div>
 			<div class="section-content">
 				<br />
-				<form:form action="/add-compensation/${employee.id}" method="post"
-					modelAttribute="compensation">
+				<form:form action="/update-compensation/${employee.id}/${compensation.id}" method="post" modelAttribute="compensation">
 					<div class="form-details">
 						<div class="stretch-input">
-							<form:label path="compensationType" class="label">Compensation Type:</form:label>
-							<span class="error">${typeError}</span>
-							<form:select path="compensationType" id="compensationType">
-								<form:option value="Salary">Salary</form:option>
-								<form:option value="Bonus">Bonus</form:option>
-								<form:option value="Commission">Commission</form:option>
-								<form:option value="Allowance">Allowance</form:option>
-								<form:option value="Adjustment">Adjustment</form:option>
-							</form:select>
-							<form:errors path="compensationType" class="error" />
+						
+							<form:label path="id" class="label">Id</form:label>
+							<form:input path="id" value="${compensation.id}" readonly="true"/>
+							<br/>
+							
+							<form:label path="compensationType" class="label">Compensation Type:</form:label><br/>
+							<form:input path="compensationType" id="compensationType"  readonly="true" value="${compensation.compensationType}"/>
 							<br />
 
 							<form:label path="amount" class="label">Amount:</form:label><span class="error">${amountError}</span> 
@@ -58,18 +54,17 @@
 								</c:if> 
 								&nbsp;&nbsp;<form:errors path="amount" class="error" />
 							<br />
-							<form:input path="amount" pattern="^(\d{1,3}(\,\d{3})*|(\d+))(\.\d{2})?$" />
+							<form:input path="amount" value="${compensation.amount}"/>
 							<br />
 
 							<form:label path="description" class="label">Description:</form:label>&nbsp;&nbsp;<form:errors path="description" class="error" />
-
 							<span class="error">${descriptionError}</span> <br />
-							<form:input path="description" />
-													<br />
+							<form:input path="description" value="${compensation.description}"/>
+							<br />
 
-							<form:label path="date" class="label">Compensation Date:</form:label>&nbsp;&nbsp;<form:errors path="date" class="error" />
-							<span class="error">${dateError}</span> <br />
-							<form:input id="compensationDate" path="date" type="month" value="${dateValue}" />
+							<form:label path="date" class="label">Compensation Date:</form:label> 
+							<br />
+							<form:input id="compensationDate" path="date" type="month" value="${dateValue}" readonly="true" />
 							<br />
 
 							<form:label path="employee" class="label">Associated Employee:</form:label>

@@ -19,7 +19,7 @@
 		</div>
 		<nav class="header-nav">
 			<ul class="nav-links">
-				<li><a href="redirect:/home" onclick="self.close();">Home</a></li>
+				<li><a href="/home" onclick="self.close();">Home</a></li>
 			</ul>
 		</nav>
 	</header>
@@ -31,7 +31,7 @@
 			</div>
 			<div class="section-content">
 				<p>Employee was successfully ${task} with the following details:
-				<div class="table">
+				<div class="table success-table">
 					<table>
 						<thead class="center-text">
 							<th>Id</th>

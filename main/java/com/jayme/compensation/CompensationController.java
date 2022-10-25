@@ -10,7 +10,6 @@ import java.util.TreeMap;
 
 import javax.validation.Valid;
 
-import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jayme.employee.Employee;
 import com.jayme.employee.EmployeeService;
@@ -34,6 +34,7 @@ public class CompensationController {
 
 	@RequestMapping("/compensation-details/{employeeId}")
 	public String showCompensationDetails(@PathVariable(name = "employeeId") long employeeId, Model model) {
+		
 		List<Compensation> compensationList = compensationService.findCompensationByEmployeeId(employeeId);
 		String total = getTotalAmount(compensationList);
 		
@@ -61,14 +62,9 @@ public class CompensationController {
 		Employee employee = compensation.getEmployee();
 		String compensationType = compensation.getCompensationType();
 		String description = compensation.getDescription();
-		
-		String date = compensation.getDate();
-		int y = LocalDate.parse(date).getYear();
-		int m = LocalDate.parse(date).getMonthValue();
-		date = YearMonth.of(y, m).toString();
+		String date = createFillerDate(compensation);
 		
 		if (bindingResult.hasErrors()) {
-//			System.out.println("binding result has errors");
 			model.addAttribute(compensation);
 			model.addAttribute(employee);
 			model.addAttribute("dateValue", date);
@@ -141,7 +137,6 @@ public class CompensationController {
 			BindingResult bindingResult, Model model) {
 		
 		if (bindingResult.hasErrors()) {
-//			System.out.println("binding result has errors");
 			model.addAttribute("employee", employeeService.get(employeeId));
 			model.addAttribute(compensation);
 			return "search-compensation-page";
@@ -168,6 +163,7 @@ public class CompensationController {
 	
 	@RequestMapping("/view-details/{employeeId}/{date}")
 	public String viewCompensationBreakdownForMonth(@PathVariable("employeeId") long employeeId, @PathVariable("date") String date, Model model) {
+		
 		List<Compensation> compensationList = compensationService.findCompensationByEmployeeIdAndDateEquals(employeeId, date);
 		String total = getTotalAmount(compensationList);
 		Month month = LocalDate.parse(date).getMonth();
@@ -179,6 +175,74 @@ public class CompensationController {
 		return "view-compensation-details";
 	}
 	
+	@RequestMapping("/update-compensation/{employeeId}/{id}")
+	public String updateCompensation(@PathVariable("employeeId") long employeeId, @PathVariable(name = "id") long id, Model model) {
+		
+		Compensation compensation = compensationService.get(id);
+		Employee employee = compensation.getEmployee();
+		String dt = createFillerDate(compensation);
+		
+		model.addAttribute("compensation", compensation);
+		model.addAttribute("employee", employee);	
+		model.addAttribute("dateValue", dt);
+		return "edit-compensation-form";
+	}
+	
+	@PostMapping("/update-compensation/{employeeId}/{id}")
+	public String submitUpdateCompensationForm(@Valid @ModelAttribute("compensation") Compensation compensation, 
+			BindingResult bindingResult, @PathVariable(name="employeeId") long employeeId, @PathVariable(name="id") long id, 
+			@RequestParam(name="date") String date, Model model) {
+		
+		Employee employee = compensation.getEmployee();
+		String compensationType = compensation.getCompensationType();
+		String description = compensation.getDescription();
+		
+		if (bindingResult.hasErrors()) {
+			String dt = createFillerDate(compensation);
+			model.addAttribute(compensation);
+			model.addAttribute(employee);
+			model.addAttribute("dateValue", dt);
+			return "edit-compensation-form";
+			
+		} else {
+			Double compensationAmount = new Double(compensation.getAmount());
+			
+			if (compensationType.equals("Bonus") || compensationType.equals("Commission") || compensationType.equals("Allowance")) { 
+				if ((compensationAmount <= 0) || (checkDescription(description))) {
+					if (compensationAmount <= 0) {
+						model.addAttribute("amountError", "Amount must be greater than 0");
+					}
+					
+					if (checkDescription(description)) {
+						model.addAttribute("descriptionError", "Description must be provided");
+					}
+				
+					model.addAttribute(compensation);
+					model.addAttribute(employee);
+					return "edit-compensation-form";
+				}
+			}
+			else if (compensationType.equals("Adjustment")) { 
+				if ((compensationAmount == 0) || (checkDescription(description))) {
+					if (compensationAmount == 0) {
+						model.addAttribute("amountError", "Amount cannot be 0");
+					}
+					if (checkDescription(description)) {
+						model.addAttribute("descriptionError", "Description must be provided");
+					}
+				
+					model.addAttribute(compensation);
+					model.addAttribute(employee);
+					return "edit-compensation-form";
+				}
+			}
+			model.addAttribute("employee", employee);
+			model.addAttribute("compensation", compensation);
+			compensationService.save(compensation);			
+			return "redirect:/view-details/"+employee.getId()+"/"+compensation.getDate();
+		}
+	}
+	
 	
 	@RequestMapping("/delete-compensation/{employeeId}/{id}")
 	public String deleteCompensation(@PathVariable("employeeId") long employeeId, @PathVariable(name = "id") long id) {
@@ -186,6 +250,13 @@ public class CompensationController {
 		return "redirect:/compensation-details/{employeeId}";
 	}
 	
+	
+	private String createFillerDate(Compensation compensation) {
+		String date = compensation.getDate();
+		int y = LocalDate.parse(date).getYear();
+		int m = LocalDate.parse(date).getMonthValue();
+		return YearMonth.of(y, m).toString();
+	}
 	
 	private String getTotalAmount(List<Compensation> compensationList) {
 		DecimalFormat amountFormatter = new DecimalFormat("#,##0.00");

@@ -2,14 +2,14 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
 <meta charset="ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="/css/styles.css">
-<link rel="icon" type="image/jpg" href="images/my-logo.jpg"
-	sizes="16x16">
+<link rel="icon" type="image/jpg" href="images/my-logo.jpg" sizes="16x16">
 <title>Employee Compensation</title>
 </head>
 
@@ -22,8 +22,6 @@
 		<nav class="header-nav">
 			<ul class="nav-links">
 				<li><a href="/home">Home</a></li>
-				<li><a href="/add-employee" target="_blank">Add Employee</a></li>
-				<li><a href="/search-employee">Search Employee</a></li>
 			</ul>
 		</nav>
 	</header>
@@ -37,15 +35,13 @@
 			<div class="section-content">
 
 				<div class="btn-group">
-					<a href="/add-compensation/${employee.id}" target="_blank" class="btn">Add Compensation</a> 
-					<a href="/filter-compensation/${employee.id}" target="_blank" class="btn">Filter Compensation</a>
 					<a href="" onclick="self.close()" class="btn">Go Back</a>
 				</div>
 				<div class="clear-float"></div>
 
 				<div class="table">
 					<p>
-						Total Amount ${chosenMonth} &ndash; $${totalAmount}
+						Total Amount ${chosenMonth}: $${totalAmount}
 					</p>
 					<table>
 						<thead class="center-text">
@@ -54,7 +50,7 @@
 							<th>Amount</th>
 							<th>Description</th>
 							<th>Date</th>
-							<!-- <th>Actions</th> -->
+							<th>Actions</th>
 						</thead>
 						<tbody>
 							<c:forEach items="${compensationList}" var="comp">
@@ -64,6 +60,7 @@
 									<td>${comp.amount}</td>
 									<td>${comp.description}</td>
 									<td>${comp.date}</td>
+									<td class="center-text actions"><a href="/update-compensation/${employee.id}/${comp.id}" onclick="window.opener.location.href=window.opener.location.href">Edit</a></td>
 								</tr>
 							</c:forEach>
 						</tbody>

@@ -23,8 +23,8 @@
 		<nav class="header-nav">
 			<ul class="nav-links">
 				<li><a href="/home">Home</a></li>
-				<li><a href="/add-employee" target="_blank">Add Employee</a></li>
-				<li><a href="/search-employee">Search Employee</a></li>
+				<!-- <li><a href="/add-employee" target="_blank">Add Employee</a></li>
+				<li><a href="/search-employee">Search Employee</a></li> -->
 			</ul>
 		</nav>
 	</header>
@@ -37,7 +37,7 @@
 			<div class="section-content">
 
 				<div class="btn-group">
-					<a href="/add-compensation/${employee.id}" target="_blank" class="btn">Add Compensation</a> 
+					<%-- <a href="/add-compensation/${employee.id}" target="_blank" class="btn">Add Compensation</a> --%> 
 					<a href="/filter-compensation/${employee.id}" class="btn">Filter Compensation</a>
 					<a href="" onclick="self.close()" class="btn">Go Back</a>
 				</div>
@@ -70,8 +70,8 @@
 		<nav class="footer-nav">
 			<ul class="nav-links clearfix">
 				<li><a href="/home">Home</a></li>
-				<li><a href="/add-employee" target="_blank">Add Employee</a></li>
-				<li><a href="/search-employee">Search Employee</a></li>
+				<!-- <li><a href="/add-employee" target="_blank">Add Employee</a></li>
+				<li><a href="/search-employee">Search Employee</a></li> -->
 			</ul>
 		</nav>
 		<div class="clear-float"></div>

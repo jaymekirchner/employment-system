@@ -24,13 +24,13 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeService employeeService;
 
-	@RequestMapping({ "/","/home"})
-	public String home(Model model) {
+	@RequestMapping({ "/", "/home"})
+	public String openMainPage(Model model) {
 		List<Employee> employees = employeeService.listAll();
 		model.addAttribute("employees", employees);
 		return "index";
 	}
-
+	
 	/* ADD NEW EMPLOYEE */
 	@RequestMapping("/add-employee")
 	public String showAddEmployeeForm(Model model) {
@@ -40,7 +40,7 @@ public class EmployeeController {
 	}
 
 	@PostMapping("/add-employee")
-	public String submitForm(@Valid @ModelAttribute("employee") Employee employee, BindingResult bindingResult,
+	public String submitAddForm(@Valid @ModelAttribute("employee") Employee employee, BindingResult bindingResult,
 			Model model) {
 
 		if (bindingResult.hasErrors()) {
@@ -137,6 +137,7 @@ public class EmployeeController {
 	@PostMapping("/update-employee/{id}")
 	public String updateEmployee(@Valid @ModelAttribute("employee") Employee employee, BindingResult bindingResult,
 			Model model, @PathVariable(name = "id") long id) {
+		
 		boolean isValidDate = validateBirthDate(employee.getBirthday());
 		boolean employeeExists = isNewEmployee(employee);
 

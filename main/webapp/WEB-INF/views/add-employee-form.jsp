@@ -53,9 +53,10 @@
 							<form:input path="lastName" />
 							<br />
 							
-							<form:label path="birthday" class="label">Date of Birth*:</form:label>&nbsp;&nbsp;<form:errors path="birthday" class="error" />
+							<form:label path="birthday" class="label">Date of Birth*:</form:label>&nbsp;&nbsp;
+							<span class="error">${errorMessage}</span><form:errors path="birthday" class="error" />
 							<br />
-							<form:input id="datefield" path="birthday" type="date" /><span class="error">${errorMessage}</span>
+							<form:input id="datefield" path="birthday" type="date" />
 							<br />
 
 							<form:label path="position">Position*:</form:label>&nbsp;&nbsp;<form:errors path="position" class="error" />
